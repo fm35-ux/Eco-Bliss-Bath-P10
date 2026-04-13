@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 
 Cypress.Commands.add('loginFront', () => {
     cy.visit('/#/login');
@@ -12,3 +13,18 @@ Cypress.Commands.add("getbySel", (selector) => {
     return cy.get(`[data-cy=${selector}]`);
 });
 
+Cypress.Commands.add('loginAPI', () => {
+    return cy.fixture('user').then((user) => {
+        return cy.request({
+            method: 'POST',
+            url: `${Cypress.env('apiUrl')}/login`,
+            body: {
+                username: user.email,
+                password: user.password
+            }
+        }).then((response) => {
+            Cypress.env('token', response.body.token);
+            return response;
+        });
+    });
+});
