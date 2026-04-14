@@ -28,3 +28,25 @@ Cypress.Commands.add('loginAPI', () => {
         });
     });
 });
+
+Cypress.Commands.add('deleteCart', () => {
+    const apiUrl = Cypress.env('apiUrl');
+
+    cy.request({
+        method: 'GET',
+        url: `${apiUrl}/orders`,
+        headers: { Authorization: `Bearer ${Cypress.env('token')}` },
+        failOnStatusCode: false
+    }).then((response) => {
+        if (response.status === 200 && response.body.orderLines?.length > 0) {
+            cy.wrap(response.body.orderLines).each((line) => {
+                cy.request({
+                    method: 'DELETE',
+                    url: `${apiUrl}/orders/${line.id}/delete`,
+                    headers: { Authorization: `Bearer ${Cypress.env('token')}` },
+                    failOnStatusCode: false
+                });
+            });
+        }
+    });
+});
