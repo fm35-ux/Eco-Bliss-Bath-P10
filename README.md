@@ -1,6 +1,8 @@
 <div align="center">
 
-# OpenClassrooms - Eco-Bliss-Bath
+# Eco-Bliss-Bath - Campagne de Tests Automatisés
+
+Ce dépôt contient la suite de tests automatisés réalisée avec Cypress pour l'application e-commerce Eco Bliss Bath. L'objectif est de garantir la stabilité des fonctionnalités critiques (API, Smoke tests, Sécurité et Parcours fonctionnels).
 </div>
 
 <p align="center">
@@ -11,30 +13,57 @@
   <br><br><br>
 </p>
 
-# Prérequis
-Pour démarrer cet applicatif web vous devez avoir les outils suivants:
-- Docker
-- NodeJs
+---
+## Prérequis
 
-# Installation et démarrage
-Clonez le projet pour le récupérer
-``` 
-git clone https://github.com/OpenClassrooms-Student-Center/Eco-Bliss-Bath-V2.git
+Avant de démarrer, assurez-vous d'avoir installé :
+
+- **Docker**
+- **Node.js** 
+
+## Installation et démarrage
+
+Pour mettre en place le projet localement, suivez ces étapes :
+
+Cloner le projet
+```bash
+git clone [https://github.com/votre-username/Eco-Bliss-Bath-V2.git](https://github.com/votre-username/Eco-Bliss-Bath-V2.git)
 cd Eco-Bliss-Bath-V2
 ```
-Pour démarrer l'API avec ça base de données.
-```
+
+Démarrer le Backend via Docker
+```bash
 docker compose up -d
 ```
-# Pour démarrer le frontend de l'applicatif
-Rendez-vous dans le dossier frontend
+Installer les dépendances du Frontend
+```bash
+cd frontend
+npm install
 ```
+## Procédure de lancement des tests 
+
+Vous devez d'abord vous placer dans le dossier frontend 
+```bash
 cd ./frontend
 ```
-Installez les dépendances du projet
+
+Ensuite il faudra installer Cypress dans le projet : 
+```bash
+npm install cypress --save-dev
 ```
-npm i
-ou
-npm install (si vous préférez)
+
+Vous pouvez ensuite exécuter la suite de tests de deux manières différentes :
+
+1. Avec l'interface Cypress :
+```bash
+npx cypress open
+```
+et choisir "E2E Testing"
+
+2. Avec le terminal de votre éditeur de code : 
+```bash
+npx cypress run
+```
+## Génération du rapport de tests 
 ```
 
