@@ -3,12 +3,9 @@
 Cypress.Commands.add('loginFront', () => {
     cy.visit('/#/login');
     cy.fixture('user').then((user) => {
-        // email should be visible
-        // et 
-        // password should be visible
-        cy.get('[data-cy="login-input-username"]').type(user.email);
-        cy.get('[data-cy="login-input-password"]').type(user.password);
-        cy.get('[data-cy="login-submit"]').click();
+        cy.get('[data-cy="login-input-username"]').should('be.visible').type(user.email);
+        cy.get('[data-cy="login-input-password"]').should('be.visible').type(user.password);
+        cy.get('[data-cy="login-submit"]').should('be.visible').click();
     });
 });
 

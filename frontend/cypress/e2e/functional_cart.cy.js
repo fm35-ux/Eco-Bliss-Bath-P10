@@ -30,33 +30,65 @@ describe('Functional Cart Testing', () => {
 
     context('With an available product', () => {
 
-        it('should add an available product to the cart and update the cart quantity', () => {
+        it('should add a product to the cart and visually update the stock (UI)', () => {
             let stockBefore;
 
-            //aller sur la fiche du produit et récupérer le stock avant l'ajout
-            cy.intercept('GET', '**/products/5').as('getProduct');
             cy.visit('/#/products/5');
-            cy.wait('@getProduct')
-                //vérifier et sauvegarder le stock avant l'ajout
-                .its('response.body.availableStock')
-                .then((stock) => {
-                    stockBefore = stock;
+            cy.getbydataCy('detail-product-add').should('exist').and('be.visible');
+            cy.getbydataCy('detail-product-stock')
+                .should('exist')
+                .and('be.visible')
+                .should(($el) => {
+                    expect($el.text()).to.match(/\d/);
+                })
+                .invoke('text')
+                .then((text) => {
+                    stockBefore = parseInt(text);
                     expect(stockBefore).to.be.greaterThan(0);
                 });
-            //ajouter le produit au panier
+
+            cy.getbydataCy('detail-product-add').click();
+            cy.url().should('include', '/cart');
+            cy.getbydataCy('cart-line').should('exist').and('be.visible');
+            cy.getbydataCy('cart-line').should('have.length', 1);
+
+            cy.visit('/#/products/5');
+            cy.getbydataCy('detail-product-stock')
+                .should('exist')
+                .and('be.visible')
+                .should(($el) => {
+                    expect($el.text()).to.match(/\d/);
+                })
+                .invoke('text')
+                .then((text) => {
+                    const stockAfter = parseInt(text);
+                    expect(stockAfter).to.eq(stockBefore - 1);
+                });
+        });
+
+        it('should add a product to the cart and verify cart content and stock with API', () => {
+            let stockBefore;
+
+            cy.intercept('GET', '**/products/5').as('getProductBefore');
+            cy.visit('/#/products/5');
+            cy.getbydataCy('detail-product-add').should('exist').and('be.visible');
+            cy.wait('@getProductBefore')
+                .its('response.body.availableStock')
+                .then((availableStock) => {
+                    stockBefore = availableStock;
+                    expect(stockBefore).to.be.greaterThan(0);
+                });
             cy.intercept('GET', '**/orders').as('getCart');
             cy.getbydataCy('detail-product-add').click();
+            cy.url().should('include', '/cart');
             cy.wait('@getCart')
                 .its('response.body.orderLines')
                 .then((orderLines) => {
-                    const addedProduct = orderLines.find(line => line.product.id === 5);
+                    const addedProduct = orderLines.find(
+                        (line) => line.product.id === 5 && line.quantity === 1
+                    );
                     expect(addedProduct).to.exist;
-                    expect(addedProduct.quantity).to.eq(1);
                 });
-            //vérifier la redirection vers le panier
-            cy.url().should('include', '/cart');
-            cy.getbydataCy('cart-line').should('have.length', 1);
-            //retourner sur la fiche du produit et vérifier que le stock a diminué de 1
             cy.intercept('GET', '**/products/5').as('getProductAfter');
             cy.visit('/#/products/5');
             cy.wait('@getProductAfter')

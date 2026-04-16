@@ -62,7 +62,7 @@ describe('API Global Testing', () => {
 
         it('should add an available product to the cart', () => {
             cy.request({
-                method: 'PUT', //utilisation de PUT au lieu de POST pour par avoir de KO 
+                method: 'PUT', //Utilisation de PUT pour correspondre au fonctionnement actuel de l'API (anomalie relevée par Marie)
                 url: `${apiUrl}/orders/add`,
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -84,7 +84,7 @@ describe('API Global Testing', () => {
 
         it('should not add an unavailable product to the cart', () => {
             cy.request({
-                method: 'PUT', //utilisation de PUT au lieu de POST pour par avoir de KO 
+                method: 'PUT', //Utilisation de PUT pour correspondre au fonctionnement actuel de l'API (anomalie relevée par Marie)
                 url: `${apiUrl}/orders/add`,
                 headers: {
                     Authorization: `Bearer ${token}`
