@@ -9,13 +9,13 @@ describe('XSS Security Testing', () => {
         cy.intercept('POST', '**/login').as('POSTlogin');
         cy.loginFront();
         cy.wait('@POSTlogin').then(() => {
-            cy.getbySel('nav-link-reviews').click();
-            cy.getbySel('review-input-rating-images').click()
+            cy.getbydataCy('nav-link-reviews').click();
+            cy.getbydataCy('review-input-rating-images').click()
                 .find('img').eq(rating - 1).click();
-            cy.getbySel('review-input-title').type(title);
-            cy.getbySel('review-input-comment').type(comment);
+            cy.getbydataCy('review-input-title').type(title);
+            cy.getbydataCy('review-input-comment').type(comment);
             cy.intercept('POST', '**/reviews').as('postReview');
-            cy.getbySel('review-submit').click();
+            cy.getbydataCy('review-submit').click();
             cy.wait('@postReview')
             cy.on('window:alert', () => {
                 throw new Error('XSS vulnerability detected: alert was executed');
