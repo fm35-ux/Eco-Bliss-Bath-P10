@@ -1,0 +1,287 @@
+{
+  "stats": {
+    "suites": 3,
+    "tests": 8,
+    "passes": 6,
+    "pending": 0,
+    "failures": 2,
+    "start": "2026-04-17T06:18:21.840Z",
+    "end": "2026-04-17T06:18:25.161Z",
+    "duration": 3321,
+    "testsRegistered": 8,
+    "passPercent": 75,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "f51416b2-e199-44fb-b726-e25bc543620e",
+      "title": "",
+      "fullFile": "cypress\\e2e\\api.cy.js",
+      "file": "cypress\\e2e\\api.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "92fc806a-2e17-4b1d-a4ab-3500d0b9eaa2",
+          "title": "API Global Testing",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "0b465941-3a06-413b-b777-d8c213c65bfd",
+              "title": "Guest Access",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should return 403 when accessing the cart without authentication",
+                  "fullTitle": "API Global Testing Guest Access should return 403 when accessing the cart without authentication",
+                  "timedOut": null,
+                  "duration": 530,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.request({\n  method: 'GET',\n  url: `${apiUrl}/orders`,\n  failOnStatusCode: false\n}).then(response => {\n  expect(response.status).to.eq(403);\n});",
+                  "err": {
+                    "message": "AssertionError: expected 401 to equal 403",
+                    "estack": "AssertionError: expected 401 to equal 403\n    at Context.eval (webpack://eco-bliss-bath/./cypress/e2e/api.cy.js:14:43)\n    at getRet (http://localhost:4200/__cypress/runner/cypress_runner.js:122798:20)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (http://localhost:4200/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (http://localhost:4200/__cypress/runner/cypress_runner.js:122809:66)\n    at Context.then (http://localhost:4200/__cypress/runner/cypress_runner.js:123060:21)",
+                    "diff": "- 401\n+ 403\n"
+                  },
+                  "uuid": "1fa49997-68df-4bac-bb09-9783e76fa3b2",
+                  "parentUUID": "0b465941-3a06-413b-b777-d8c213c65bfd",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should return 401 for login attempt with unknown user",
+                  "fullTitle": "API Global Testing Guest Access should return 401 for login attempt with unknown user",
+                  "timedOut": null,
+                  "duration": 146,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.request({\n  method: 'POST',\n  url: `${apiUrl}/login`,\n  failOnStatusCode: false,\n  body: {\n    username: \"unknown@user.fr\",\n    password: \"wrongpassword\"\n  }\n}).then(response => {\n  expect(response.status).to.eq(401);\n});",
+                  "err": {},
+                  "uuid": "0cbca67a-5e3f-47aa-bf83-e798c16e0029",
+                  "parentUUID": "0b465941-3a06-413b-b777-d8c213c65bfd",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should return full product specifications for a valid ID",
+                  "fullTitle": "API Global Testing Guest Access should return full product specifications for a valid ID",
+                  "timedOut": null,
+                  "duration": 140,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const productID = 9;\ncy.request({\n  method: 'GET',\n  url: `${apiUrl}/products/${productID}`,\n  failOnStatusCode: false\n}).then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.body).to.include.all.keys(\"id\", \"name\", \"availableStock\", \"skin\", \"aromas\", \"ingredients\", \"description\", \"price\", \"picture\", \"varieties\");\n  expect(response.body.id).to.eq(productID);\n});",
+                  "err": {},
+                  "uuid": "10fec6c2-3f50-43da-b25c-2924ae6dab5b",
+                  "parentUUID": "0b465941-3a06-413b-b777-d8c213c65bfd",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "0cbca67a-5e3f-47aa-bf83-e798c16e0029",
+                "10fec6c2-3f50-43da-b25c-2924ae6dab5b"
+              ],
+              "failures": [
+                "1fa49997-68df-4bac-bb09-9783e76fa3b2"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 816,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "9f6b5e6c-a4a8-4fa2-b7fd-364569d26233",
+              "title": "Authenticated User Access",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should confirm valid login returns code 200 and a token",
+                  "fullTitle": "API Global Testing Authenticated User Access should confirm valid login returns code 200 and a token",
+                  "timedOut": null,
+                  "duration": 1210,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.loginAPI().then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.body).to.have.property('token');\n});",
+                  "err": {},
+                  "uuid": "180987e6-1f6a-4652-ade0-7c486b355876",
+                  "parentUUID": "9f6b5e6c-a4a8-4fa2-b7fd-364569d26233",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should add an available product to the cart",
+                  "fullTitle": "API Global Testing Authenticated User Access should add an available product to the cart",
+                  "timedOut": null,
+                  "duration": 315,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.request({\n  method: 'PUT',\n  //Utilisation de PUT pour correspondre au fonctionnement actuel de l'API (anomalie relevée par Marie)\n  url: `${apiUrl}/orders/add`,\n  headers: {\n    Authorization: `Bearer ${token}`\n  },\n  body: {\n    product: 5,\n    quantity: 1\n  }\n}).then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.body).to.have.property(\"orderLines\");\n  const productInCart = response.body.orderLines.find(line => line.product.id === 5);\n  expect(productInCart).to.exist;\n  expect(productInCart.quantity).to.be.at.least(1);\n});",
+                  "err": {},
+                  "uuid": "bca69aa1-f774-4835-99c5-63de1414a983",
+                  "parentUUID": "9f6b5e6c-a4a8-4fa2-b7fd-364569d26233",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should not add an unavailable product to the cart",
+                  "fullTitle": "API Global Testing Authenticated User Access should not add an unavailable product to the cart",
+                  "timedOut": null,
+                  "duration": 405,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.request({\n  method: 'PUT',\n  //Utilisation de PUT pour correspondre au fonctionnement actuel de l'API (anomalie relevée par Marie)\n  url: `${apiUrl}/orders/add`,\n  headers: {\n    Authorization: `Bearer ${token}`\n  },\n  failOnStatusCode: false,\n  body: {\n    product: 4,\n    quantity: 1\n  }\n}).then(response => {\n  expect(response.status).not.to.eq(200);\n});",
+                  "err": {
+                    "message": "AssertionError: expected 200 to not equal 200",
+                    "estack": "AssertionError: expected 200 to not equal 200\n    at Context.eval (webpack://eco-bliss-bath/./cypress/e2e/api.cy.js:99:47)\n    at getRet (http://localhost:4200/__cypress/runner/cypress_runner.js:122798:20)\n    at tryCatcher (http://localhost:4200/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (http://localhost:4200/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (http://localhost:4200/__cypress/runner/cypress_runner.js:122809:66)\n    at Context.then (http://localhost:4200/__cypress/runner/cypress_runner.js:123060:21)",
+                    "diff": ""
+                  },
+                  "uuid": "df591f3a-17d1-4e1f-b552-02afddd000bc",
+                  "parentUUID": "9f6b5e6c-a4a8-4fa2-b7fd-364569d26233",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should retrieve the authenticated user s cart content",
+                  "fullTitle": "API Global Testing Authenticated User Access should retrieve the authenticated user s cart content",
+                  "timedOut": null,
+                  "duration": 181,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.request({\n  method: 'GET',\n  url: `${apiUrl}/orders`,\n  headers: {\n    Authorization: `Bearer ${token}`\n  }\n}).then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.body).to.have.property(\"orderLines\");\n});",
+                  "err": {},
+                  "uuid": "e35face1-9544-4fe5-b3c3-4ee269615109",
+                  "parentUUID": "9f6b5e6c-a4a8-4fa2-b7fd-364569d26233",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should post a new review for a product",
+                  "fullTitle": "API Global Testing Authenticated User Access should post a new review for a product",
+                  "timedOut": null,
+                  "duration": 210,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const reviewData = {\n  title: _faker.fakerFR.word.words(3),\n  comment: _faker.fakerFR.commerce.productDescription(),\n  rating: _faker.fakerFR.number.int({\n    min: 1,\n    max: 5\n  })\n};\ncy.request({\n  method: 'POST',\n  url: `${apiUrl}/reviews`,\n  headers: {\n    Authorization: `Bearer ${token}`\n  },\n  body: reviewData\n}).then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.body.title).to.eq(reviewData.title);\n  expect(response.body.comment).to.eq(reviewData.comment);\n  expect(response.body.rating).to.eq(reviewData.rating);\n});",
+                  "err": {},
+                  "uuid": "31975da6-0a4f-4ae0-8137-7c49fc8862f1",
+                  "parentUUID": "9f6b5e6c-a4a8-4fa2-b7fd-364569d26233",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "180987e6-1f6a-4652-ade0-7c486b355876",
+                "bca69aa1-f774-4835-99c5-63de1414a983",
+                "e35face1-9544-4fe5-b3c3-4ee269615109",
+                "31975da6-0a4f-4ae0-8137-7c49fc8862f1"
+              ],
+              "failures": [
+                "df591f3a-17d1-4e1f-b552-02afddd000bc"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 2321,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

@@ -14,5 +14,14 @@ export default defineConfig({
     },
     baseUrl: "http://localhost:4200",
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
+
+    // Configuration du reporter Mochawesome
+    reporter: 'mochawesome',
+    reporterOptions: {
+      reportDir: 'cypress/reports',
+      overwrite: false,
+      html: true,
+      json: true,
+    }
   },
 });
