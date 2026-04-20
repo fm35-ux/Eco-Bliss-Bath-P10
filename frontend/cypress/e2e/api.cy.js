@@ -14,7 +14,7 @@ describe('API Global Testing', () => {
                 expect(response.status).to.eq(403);
             });
         });
-        // Anomalie connue :: l'API renvoie 401 au lieu de 403 - voir le bilan de campagne de Marie.
+        // Anomalie connue : l'API renvoie 401 au lieu de 403 - voir le bilan de campagne de Marie.
 
         it('should return 401 for login attempt with unknown user', () => {
             cy.request({
@@ -100,7 +100,7 @@ describe('API Global Testing', () => {
             });
         });
 
-        it('should retrieve the authenticated user s cart content', () => {
+        it('should retrieve the authenticated user-s cart content', () => {
             cy.request({
                 method: 'GET',
                 url: `${apiUrl}/orders`,

@@ -1,0 +1,230 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 6,
+    "passes": 4,
+    "pending": 0,
+    "failures": 2,
+    "start": "2026-04-17T09:54:23.220Z",
+    "end": "2026-04-17T09:54:46.907Z",
+    "duration": 23687,
+    "testsRegistered": 6,
+    "passPercent": 66.66666666666666,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "05a49afd-8dce-4a57-a1fc-b7ecb2fcd5d9",
+      "title": "",
+      "fullFile": "cypress\\e2e\\functional_cart.cy.js",
+      "file": "cypress\\e2e\\functional_cart.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "f7afa1dd-fac5-4e67-9164-3ece1873e0e7",
+          "title": "Functional Cart Testing",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should not add an unavailable product to the cart",
+              "fullTitle": "Functional Cart Testing should not add an unavailable product to the cart",
+              "timedOut": null,
+              "duration": 8540,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.intercept('GET', '**/products/3').as('getProduct');\ncy.visit('/#/products/3');\ncy.wait('@getProduct').its('response.body').then(product => {\n  expect(product.availableStock).to.be.lessThan(1);\n});\ncy.getbydataCy('detail-product-add').click();\ncy.url().should('include', '/products/3');\ncy.intercept('GET', '**/orders').as('getCart');\ncy.visit('/#/cart');\ncy.wait('@getCart');\ncy.getbydataCy('cart-line').should('have.length', 0);",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: Too many elements found. Found '1', expected '0'.",
+                "estack": "AssertionError: Timed out retrying after 4000ms: Too many elements found. Found '1', expected '0'.\n    at Context.eval (webpack://eco-bliss-bath/./cypress/e2e/functional_cart.cy.js:28:36)",
+                "diff": null
+              },
+              "uuid": "7342c281-ecc9-4169-9515-222527ffd954",
+              "parentUUID": "f7afa1dd-fac5-4e67-9164-3ece1873e0e7",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [
+            {
+              "uuid": "33e97e67-c5fa-47ca-a23f-7cc59db3fe1a",
+              "title": "With an available product",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should add a product to the cart and visually update the stock (UI)",
+                  "fullTitle": "Functional Cart Testing With an available product should add a product to the cart and visually update the stock (UI)",
+                  "timedOut": null,
+                  "duration": 2262,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "let stockBefore;\ncy.visit('/#/products/5');\ncy.getbydataCy('detail-product-add').should('exist').and('be.visible');\ncy.getbydataCy('detail-product-stock').should('exist').and('be.visible').should($el => {\n  expect($el.text()).to.match(/\\d/);\n}).invoke('text').then(text => {\n  stockBefore = parseInt(text);\n  expect(stockBefore).to.be.greaterThan(0);\n});\ncy.getbydataCy('detail-product-add').click();\ncy.url().should('include', '/cart');\ncy.getbydataCy('cart-line').should('exist').and('be.visible');\ncy.getbydataCy('cart-line').should('have.length', 1);\ncy.visit('/#/products/5');\ncy.getbydataCy('detail-product-stock').should('exist').and('be.visible').should($el => {\n  expect($el.text()).to.match(/\\d/);\n}).invoke('text').then(text => {\n  const stockAfter = parseInt(text);\n  expect(stockAfter).to.eq(stockBefore - 1);\n});",
+                  "err": {},
+                  "uuid": "3e478590-a130-4edb-9307-34e4f9bb34f2",
+                  "parentUUID": "33e97e67-c5fa-47ca-a23f-7cc59db3fe1a",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should add a product to the cart and verify cart content and stock with API",
+                  "fullTitle": "Functional Cart Testing With an available product should add a product to the cart and verify cart content and stock with API",
+                  "timedOut": null,
+                  "duration": 2517,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "let stockBefore;\ncy.intercept('GET', '**/products/5').as('getProductBefore');\ncy.visit('/#/products/5');\ncy.getbydataCy('detail-product-add').should('exist').and('be.visible');\ncy.wait('@getProductBefore').its('response.body.availableStock').then(availableStock => {\n  stockBefore = availableStock;\n  expect(stockBefore).to.be.greaterThan(0);\n});\ncy.intercept('GET', '**/orders').as('getCart');\ncy.getbydataCy('detail-product-add').click();\ncy.url().should('include', '/cart');\ncy.wait('@getCart').its('response.body.orderLines').then(orderLines => {\n  const addedProduct = orderLines.find(line => line.product.id === 5 && line.quantity === 1);\n  expect(addedProduct).to.exist;\n});\ncy.intercept('GET', '**/products/5').as('getProductAfter');\ncy.visit('/#/products/5');\ncy.wait('@getProductAfter').its('response.body.availableStock').then(stockAfter => {\n  expect(stockAfter).to.eq(stockBefore - 1);\n});",
+                  "err": {},
+                  "uuid": "af2f9a04-678e-4d56-bc5e-8a70f6abcf88",
+                  "parentUUID": "33e97e67-c5fa-47ca-a23f-7cc59db3fe1a",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should display the product availability field",
+                  "fullTitle": "Functional Cart Testing With an available product should display the product availability field",
+                  "timedOut": null,
+                  "duration": 1669,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.visit('/#/products/4');\ncy.getbydataCy('detail-product-stock').should('exist').and('be.visible');",
+                  "err": {},
+                  "uuid": "96b00336-d59e-48ab-86c4-3a6521fafd2f",
+                  "parentUUID": "33e97e67-c5fa-47ca-a23f-7cc59db3fe1a",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should not allow adding a product with a negative quantity to the cart",
+                  "fullTitle": "Functional Cart Testing With an available product should not allow adding a product with a negative quantity to the cart",
+                  "timedOut": null,
+                  "duration": 2166,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.visit('/#/products/6');\ncy.getbydataCy('detail-product-quantity').clear().type('-1');\ncy.getbydataCy('detail-product-form').should('have.class', 'ng-invalid');\ncy.getbydataCy('detail-product-add').click();\ncy.url().should('include', '/products/6');",
+                  "err": {},
+                  "uuid": "ca8f8602-ab70-4898-97ff-23b81e4dbc8d",
+                  "parentUUID": "33e97e67-c5fa-47ca-a23f-7cc59db3fe1a",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should not allow adding a product with a quantity greater than 20",
+                  "fullTitle": "Functional Cart Testing With an available product should not allow adding a product with a quantity greater than 20",
+                  "timedOut": null,
+                  "duration": 6072,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.visit('/#/products/7');\ncy.getbydataCy('detail-product-quantity').clear().type('21');\ncy.getbydataCy('detail-product-form').should('have.class', 'ng-invalid');\ncy.getbydataCy('detail-product-add').click();\ncy.url().should('include', '/products/7');",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 4000ms: expected '<div#product-cart.ng-untouched.ng-dirty.ng-valid>' to have class 'ng-invalid'",
+                    "estack": "AssertionError: Timed out retrying after 4000ms: expected '<div#product-cart.ng-untouched.ng-dirty.ng-valid>' to have class 'ng-invalid'\n    at Context.eval (webpack://eco-bliss-bath/./cypress/e2e/functional_cart.cy.js:117:50)",
+                    "diff": null
+                  },
+                  "uuid": "407a06fb-6f4b-4840-8749-8f847d4d7f4d",
+                  "parentUUID": "33e97e67-c5fa-47ca-a23f-7cc59db3fe1a",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "3e478590-a130-4edb-9307-34e4f9bb34f2",
+                "af2f9a04-678e-4d56-bc5e-8a70f6abcf88",
+                "96b00336-d59e-48ab-86c4-3a6521fafd2f",
+                "ca8f8602-ab70-4898-97ff-23b81e4dbc8d"
+              ],
+              "failures": [
+                "407a06fb-6f4b-4840-8749-8f847d4d7f4d"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 14686,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [
+            "7342c281-ecc9-4169-9515-222527ffd954"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 8540,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

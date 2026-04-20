@@ -112,11 +112,11 @@ describe('Functional Cart Testing', () => {
         });
 
         it('should not allow adding a product with a quantity greater than 20', () => {
-            cy.visit('/#/products/7');
+            cy.visit('/#/products/5');
             cy.getbydataCy('detail-product-quantity').clear().type('21');
             cy.getbydataCy('detail-product-form').should('have.class', 'ng-invalid');
             cy.getbydataCy('detail-product-add').click();
-            cy.url().should('include', '/products/7');
+            cy.url().should('include', '/products/5');
         });
     });
 });
