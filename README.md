@@ -55,31 +55,15 @@ npm start
 
 ## Données de test
 
-1.Pour la connexion d'un utilisateur : 
+Pour la connexion d'un utilisateur : 
 - Email : test2@test.fr 
 - Mot de passe : testtest
-
-2.Génération de données aléatoires : 
-
-Vous pouvez installer Faker avec cette ligne de commande :
-```bash
-npm install @faker-js/faker --save-dev
-```
-Il conviendra ensuite d'intégrer cette ligne de code : 
-```javascript 
-import { fakerFR } from '@faker-js/faker';
-```
 
 ## Procédure de lancement des tests 
 
 Vous devez d'abord vous placer dans le dossier frontend 
 ```bash
 cd ./frontend
-```
-
-Ensuite il faudra installer Cypress dans le projet : 
-```bash
-npm install cypress --save-dev
 ```
 
 Vous pouvez ensuite exécuter la suite de tests de deux manières différentes :
@@ -108,4 +92,4 @@ Commande à exécuter :
 ```bash
 npm run report
 ```
-Les rapports seront générés dans le dossier cypress/reports.
+Les rapports seront générés dans le dossier *cypress/reports*.

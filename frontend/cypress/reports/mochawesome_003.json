@@ -5,9 +5,9 @@
     "passes": 2,
     "pending": 0,
     "failures": 0,
-    "start": "2026-04-17T06:18:59.986Z",
-    "end": "2026-04-17T06:19:03.331Z",
-    "duration": 3345,
+    "start": "2026-04-24T16:56:13.506Z",
+    "end": "2026-04-24T16:56:16.892Z",
+    "duration": 3386,
     "testsRegistered": 2,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "36221634-33c6-4f74-86c8-786964e96fc7",
+      "uuid": "48f58140-39d1-42b1-81b3-a1593511bc4d",
       "title": "",
       "fullFile": "cypress\\e2e\\smoke_tests.cy.js",
       "file": "cypress\\e2e\\smoke_tests.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "7e5eb324-8700-4624-ba14-97470ead2530",
+          "uuid": "5b25898d-e574-4aaf-9656-9642281ec6a2",
           "title": "smoke tests",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "should display form and button for login",
               "fullTitle": "smoke tests should display form and button for login",
               "timedOut": null,
-              "duration": 1339,
+              "duration": 878,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -47,8 +47,8 @@
               "context": null,
               "code": "cy.visit('/#/');\ncy.getbydataCy('nav-link-login').should(\"be.visible\");\ncy.getbydataCy('nav-link-login').click();\ncy.getbydataCy('login-input-username').should('be.visible');\ncy.getbydataCy('login-input-password').should('be.visible');\ncy.getbydataCy('login-submit').should('be.visible');",
               "err": {},
-              "uuid": "0e0fd987-4682-4d86-8b28-719e7ce02d93",
-              "parentUUID": "7e5eb324-8700-4624-ba14-97470ead2530",
+              "uuid": "653202e3-fbad-45db-bef0-ed5fba7ef479",
+              "parentUUID": "5b25898d-e574-4aaf-9656-9642281ec6a2",
               "isHook": false,
               "skipped": false
             },
@@ -56,7 +56,7 @@
               "title": "should display add to cart button when logged in",
               "fullTitle": "smoke tests should display add to cart button when logged in",
               "timedOut": null,
-              "duration": 1908,
+              "duration": 2397,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -65,21 +65,21 @@
               "context": null,
               "code": "cy.loginFront();\ncy.getbydataCy('product-home-link').first().click();\ncy.getbydataCy('detail-product-add').should('be.visible');",
               "err": {},
-              "uuid": "e1830597-f1c9-441f-b909-c12d22529fd3",
-              "parentUUID": "7e5eb324-8700-4624-ba14-97470ead2530",
+              "uuid": "e2a83c58-0b8b-4671-a929-342fc966bc09",
+              "parentUUID": "5b25898d-e574-4aaf-9656-9642281ec6a2",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "0e0fd987-4682-4d86-8b28-719e7ce02d93",
-            "e1830597-f1c9-441f-b909-c12d22529fd3"
+            "653202e3-fbad-45db-bef0-ed5fba7ef479",
+            "e2a83c58-0b8b-4671-a929-342fc966bc09"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 3247,
+          "duration": 3275,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

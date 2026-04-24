@@ -7,8 +7,8 @@
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "clean:reports": "rm -rf cypress/reports/*",
-    "pretest": "npm run clean:reports",
+    "clean:reports": "rimraf cypress/reports",
+    "prereport": "npm run clean:reports",
     "test:cli": "cypress run",
     "merge:reports": "npx mochawesome-merge cypress/reports/*.json > cypress/reports/full-report.json",
     "generate:html": "npx mochawesome-report-generator cypress/reports/full-report.json --reportDir cypress/reports --reportFilename index.html",
@@ -45,6 +45,7 @@
     "mochawesome": "^7.1.4",
     "mochawesome-merge": "^5.1.1",
     "mochawesome-report-generator": "^6.3.2",
+    "rimraf": "^6.1.3",
     "typescript": "~4.6.2"
   }
 }

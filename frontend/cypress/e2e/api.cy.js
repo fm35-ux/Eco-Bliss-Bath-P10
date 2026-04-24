@@ -100,7 +100,7 @@ describe('API Global Testing', () => {
             });
         });
 
-        it('should retrieve the authenticated user-s cart content', () => {
+        it('should retrieve the authenticated user\'s cart content', () => {
             cy.request({
                 method: 'GET',
                 url: `${apiUrl}/orders`,

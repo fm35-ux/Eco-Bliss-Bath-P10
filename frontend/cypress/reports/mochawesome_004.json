@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2026-04-17T06:19:07.019Z",
-    "end": "2026-04-17T06:19:11.252Z",
-    "duration": 4233,
+    "start": "2026-04-24T16:56:20.792Z",
+    "end": "2026-04-24T16:56:26.493Z",
+    "duration": 5701,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "9a58fa0e-7402-4a15-8202-54f97c31d9d0",
+      "uuid": "4797754d-38ba-4c94-b09c-aceecc8c8f4c",
       "title": "",
       "fullFile": "cypress\\e2e\\xss.cy.js",
       "file": "cypress\\e2e\\xss.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "73b76936-d7e2-4014-ad3d-79a224224b24",
+          "uuid": "19597cde-de0e-4437-818b-4fc949f92cb5",
           "title": "XSS Security Testing",
           "fullFile": "",
           "file": "",
@@ -38,29 +38,29 @@
               "title": "should not execute a script injected in the review comment field",
               "fullTitle": "XSS Security Testing should not execute a script injected in the review comment field",
               "timedOut": null,
-              "duration": 4148,
+              "duration": 5599,
               "state": "passed",
-              "speed": "fast",
+              "speed": "medium",
               "pass": true,
               "fail": false,
               "pending": false,
               "context": null,
               "code": "const title = _faker.fakerFR.word.words(3);\nconst comment = '<script>alert(\"XSS\")</script>';\nconst rating = _faker.fakerFR.number.int({\n  min: 1,\n  max: 5\n});\ncy.intercept('POST', '**/login').as('POSTlogin');\ncy.loginFront();\ncy.wait('@POSTlogin').then(() => {\n  cy.getbydataCy('nav-link-reviews').click();\n  cy.getbydataCy('review-input-rating-images').click().find('img').eq(rating - 1).click();\n  cy.getbydataCy('review-input-title').type(title);\n  cy.getbydataCy('review-input-comment').type(comment);\n  cy.intercept('POST', '**/reviews').as('postReview');\n  cy.getbydataCy('review-submit').click();\n  cy.wait('@postReview');\n  cy.on('window:alert', () => {\n    throw new Error('XSS vulnerability detected: alert was executed');\n  });\n});",
               "err": {},
-              "uuid": "e3abab91-2cd7-4fc2-982f-4eeea6dacdc8",
-              "parentUUID": "73b76936-d7e2-4014-ad3d-79a224224b24",
+              "uuid": "15fe61d5-8c91-40d5-9afb-48ffc3a500e1",
+              "parentUUID": "19597cde-de0e-4437-818b-4fc949f92cb5",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "e3abab91-2cd7-4fc2-982f-4eeea6dacdc8"
+            "15fe61d5-8c91-40d5-9afb-48ffc3a500e1"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 4148,
+          "duration": 5599,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
